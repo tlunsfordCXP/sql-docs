@@ -110,13 +110,13 @@ Choose one of the following options to install **sqlcmd** (Go) on Linux.
 1. Import the public repository GPG keys.
 
    ```bash
-   curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+   curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft-prod.gpg > /dev/null
    ```
 
 1. Add the Microsoft repository, where the `ubuntu/20.04` segment might be `debian/11`, `ubuntu/20.04`, or `ubuntu/22.04`.
 
    ```bash
-   add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/20.04/prod.list)"
+   echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/22.04/prod jammy main" | sudo tee /etc/apt/sources.list.d/microsoft-prod.list
    ```
 
 1. Install **sqlcmd** (Go) with **apt**.
